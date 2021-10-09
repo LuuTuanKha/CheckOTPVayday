@@ -70,13 +70,7 @@ const Home = () => {
                                         if (json.status.msg === 'Thực hiện thành công') {
                                             alert('Mật khẩu đã được đổi thành abcd1234');
                                         }
-                                        if (json.status.msg === 'Số CMND không chính xác') {
-                                            alert('Số CMND không chính xác');
-                                            
-                                        }
-                                        if (json.status.msg === 'Người dùng chưa đăng ký') {
-                                            alert('Người dùng chưa đăng ký');
-                                        }
+                                       
                                     })
 
 
@@ -150,7 +144,8 @@ const Home = () => {
                             1. Phải nhập cả 3 ô nhập liệu, tất cả đều là số: <br></br>
                             2. Chỉ lọc được 1000 số/ lần: <br></br>
                             3. Ở ô số bắt đầu, mỗi lần nhập 1  trong các số sau: 0, 1000.2000,3000,4000,5000,6000,7000,8000,9000 <br></br>
-
+                            4. Khi thành công, mật khẩu là abcd1234
+                            
 
                         </div><br/>
                         <h3>Trạng thái phần mềm:  {status}</h3>
