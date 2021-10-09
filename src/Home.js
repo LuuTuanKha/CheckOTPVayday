@@ -31,11 +31,12 @@ const Home = () => {
                 // if(start>10000 || start<0) alert('Số bắt đầu không hợp lệ!')
                 // else
                 if (start === 0) {
+                    let number = 0
                     for (let i = 0; i <= 9; i++) {
                         for (let j = 0; j <= 9; j++) {
                             for (let k = 0; k <= 9; k++) {
 
-                                var number = i * 100 + j * 10 + k
+                                 number = i * 100 + j * 10 + k
                                 if (number < 10) number = "000" + number
                                 else if (number < 100) number = "00" + number
                                 else if (number < 1000) number = "0" + number
@@ -67,8 +68,11 @@ const Home = () => {
                                 }).then(res => res.json())
                                     .then(json => {
                                         console.log(json.status.msg)
+                                        setstatus("Đã lọc số: "+ number +"Kết quả:"+ json.status.msg)
                                         if (json.status.msg === 'Thực hiện thành công') {
                                             alert('Mật khẩu đã được đổi thành abcd1234');
+                                            setstatus('Đã xong')
+                                            return;
                                         }
                                        
                                     })
@@ -145,6 +149,7 @@ const Home = () => {
                             2. Chỉ lọc được 1000 số/ lần: <br></br>
                             3. Ở ô số bắt đầu, mỗi lần nhập 1  trong các số sau: 0, 1000.2000,3000,4000,5000,6000,7000,8000,9000 <br></br>
                             4. Khi thành công, mật khẩu là abcd1234
+                            5.Nếu trạng thái phần mềm là "ố CMND không chính xác " hoặc 'Người dùng chưa đăng ký'. Vui lòng làm mới (F5) trang và nhập đúng.
                             
 
                         </div><br/>
